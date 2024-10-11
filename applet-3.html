@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Applet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            background-color: #ddd;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 95vh;
+        }
+        h1 {
+            margin-bottom: 2px;
+            color: #042444;
+        }
+        h1:hover {
+            margin-bottom: 20px;
+            color: #ffc000;
+        }
+        button {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            background-color: #042444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #ffc000;
+            color: #333;
+        }
+        #logs {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            height: calc(100vh - 180px);
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            overflow-y: auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .logEntry {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 4px solid #4A90E2;
+            background-color: #f9f9f9;
+            transition: background-color 0.3s;
+        }
+        .logEntry:hover {
+            background-color: #e9f4ff;
+        }
+        #total {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>LOGS APPLET</h1> 
+    <div id="total">Total Logs: 0</div>
+    <div id="logs">Logs:</div>
+    <div>
+        <button id="logButton">Add Log</button>
+        <button id="resetButton"><i class="fas fa-trash"></i> Reset Logs</button>
+    </div>
+    <script>
+        const logButton = document.getElementById('logButton');
+        const resetButton = document.getElementById('resetButton');
+        const logsDiv = document.getElementById('logs');
+        const totalDiv = document.getElementById('total');
+        
+        let logCount = 0;
+
+        logButton.addEventListener('click', () => {
+            const date = new Date().toLocaleString();
+            const newLog = `Log #${++logCount}: ${date}`;
+            const logEntry = document.createElement('div');
+            logEntry.textContent = newLog;
+            logEntry.className = 'logEntry';
+            logsDiv.appendChild(logEntry);
+
+            totalDiv.textContent = `Total Logs: ${logCount}`;
+        });
+
+        resetButton.addEventListener('click', () => {
+            logsDiv.innerHTML = 'Logs:';
+            logCount = 0;
+            totalDiv.textContent = `Total Logs: ${logCount}`;
+        });
+    </script>
+</body>
+</html>
